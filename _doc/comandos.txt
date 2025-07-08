@@ -1,0 +1,108 @@
+liberar execucao de scripts. Abrir o power shell em modo admin:
+Set-ExecutionPolicy Unrestricted
+
+install npm:
+npm install -g npm
+
+npm install 
+
+create vite project:
+npm create vite@latest
+
+npm run dev
+
+checar versões:
+npm view react version
+node -v
+
+---------------------------------
+TypeScript
+---------------------------------
+install:
+npm i -g typescript ts-node
+
+compile the file:
+tsc index.ts
+
+execute the file:
+node index.js
+
+execute the 2 commands in one:
+ts-node index.ts 
+
+
+Examples:
+const NavbarList: React.FC<{ isNavBarOpen: boolean }> = ({ isNavBarOpen }) => {
+
+---------------------------------
+Tailwind
+---------------------------------
+https://tailwindcss.com/docs/installation/using-vite
+
+npm install tailwindcss @tailwindcss/vite
+
+Add the @tailwindcss/vite plugin to your Vite configuration.
+
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+  ],
+})
+
+Exemplos:
+Unati menu laranja com bordas marrom e laranja:
+className='
+  py-4 px-6 my-2 mx-6 rounded-xl
+  text-amber-950 bg-amber-400 
+  border-amber-950 border-4 
+  border-l-amber-600 border-t-amber-600
+'
+
+---------------------------------
+GIT
+---------------------------------
+git push -u origin main
+
+ignore changes and pull
+git reset --hard origin/main  
+git pull
+
+Git segundo usuário
+git init
+git pull https://github.com/guikominami/Mudalab-ts.git
+git remote add origin https://github.com/guikominami/Mudalab-ts.git
+
+nao sei se precisa disso
+git fetch -p origin
+git branch -m master main
+
+-------------------------------------
+  deploy in a subdirectory
+-------------------------------------
+  inserir na rota
+  <BrowserRouter basename={'/unati/'}>
+  
+  caminhos das imagens públicas:    
+  image: '/unati/images/vocabulary/angola.jpg',
+      
+-------------------------------------      
+  Template Literals  
+-------------------------------------       
+ console.log(`${greeting}, ${name}!`);
+ 
+-------------------------------------      
+  Parse html
+-------------------------------------   
+ import parse from 'html-react-parser';
+ 
+ -------------------------------------      
+  onClick event
+-------------------------------------   
+ React.MouseEvent<HTMLElement>
+  
+-------------------------------------      
+  Tanstack Query
+-------------------------------------   
+npm install @tanstack/react-query
