@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTranslations } from "../api";
+import { fetchTranslations } from "../../api";
 
 function Translation() {
   const { data, isLoading, isError } = useQuery({

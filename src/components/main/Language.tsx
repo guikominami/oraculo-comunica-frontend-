@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchLanguages } from "../api";
+import { fetchLanguages } from "../../api";
+import ListItem from "../UI/ListItem";
 
-function Language() {
+const Language: React.FC<{
+  onListClick: (languageId: number) => void;
+}> = ({ onListClick }) => {
   const { data, isLoading, isError } = useQuery({
     queryFn: () => fetchLanguages(),
     queryKey: ["languages"],
@@ -22,7 +25,12 @@ function Language() {
     content = (
       <ul>
         {data.map((item) => (
-          <li key={item._id}>{item.name}</li>
+          <ListItem
+            key={item._id}
+            id={item._id}
+            item={item.name}
+            onListClick={() => onListClick(item._id)}
+          />
         ))}
       </ul>
     );
@@ -30,6 +38,6 @@ function Language() {
   }
 
   return <div>{content}</div>;
-}
+};
 
 export default Language;
