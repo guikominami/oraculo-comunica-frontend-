@@ -3,12 +3,12 @@ import { fetchLanguages } from "../../api";
 import ListItem from "../UI/ListItem";
 
 const Language: React.FC<{
-  onListClick: (languageId: number) => void;
+  onListClick: (languageSelectedId: number) => void;
 }> = ({ onListClick }) => {
   const { data, isLoading, isError } = useQuery({
     queryFn: () => fetchLanguages(),
     queryKey: ["languages"],
-    staleTime: Infinity,
+    staleTime: 0,
   });
 
   let content;
@@ -34,7 +34,6 @@ const Language: React.FC<{
         ))}
       </ul>
     );
-    console.log(data);
   }
 
   return <div>{content}</div>;

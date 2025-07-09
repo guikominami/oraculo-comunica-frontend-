@@ -8,18 +8,20 @@ import Title from "../components/UI/Title";
 import { useState } from "react";
 
 function Translations() {
-  const [languageSelected, setLanguageSelected] = useState<number>();
+  const [languageSelectedId, setLanguageSelectedId] = useState<number>();
   const [wordSelected, setWordSelected] = useState<number>();
 
   function handleLanguageClick(languageId: number) {
-    console.log(languageId);
-    setLanguageSelected(languageId);
+    console.log("languageClick", languageId);
+    setLanguageSelectedId(languageId);
   }
 
   function handleWordClick(wordId: number) {
     console.log(wordId);
     setWordSelected(wordId);
   }
+
+  console.log("languageSelected", languageSelectedId);
 
   return (
     <Section>
@@ -29,8 +31,10 @@ function Translations() {
       </Container>
       <Container>
         <Title title='Words' />
-        {languageSelected && <Word onListClick={handleWordClick} />}
-        {wordSelected && <Translation />}
+        {languageSelectedId && (
+          <Word onListClick={handleWordClick} languageId={languageSelectedId} />
+        )}
+        {/* {wordSelected && <Translation />} */}
       </Container>
     </Section>
   );

@@ -6,8 +6,9 @@ export function fetchLanguages(): Promise<Language[]> | undefined {
   return fetchData("languages");
 }
 
-export function fetchWords(): Promise<Word[]> | undefined {
-  return fetchData("words");
+export function fetchWords(languageId: number): Promise<Word[] | undefined> {
+  console.log("languageId", languageId);
+  return fetchData("words/languageid/" + languageId);
 }
 
 export function fetchTranslations(): Promise<Translation[]> | undefined {
