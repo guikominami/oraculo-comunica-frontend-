@@ -1,13 +1,13 @@
-import { fetchWords } from "../../api";
-import ListItem from "../UI/ListItem";
 import { useEffect, useState } from "react";
-import type { Word } from "../../entities/Word";
+import { fetchLanguages } from "../../api";
+import ListItem from "../UI/ListItem";
+import type { Language } from "../../entities/Language";
 
-const Words: React.FC<{
-  onListClick: (wordId: number) => void;
-  languageId: number;
-}> = ({ onListClick, languageId }) => {
-  const [data, setData] = useState<Word[]>();
+const Languages: React.FC<{
+  onListClick: (languageSelectedId: number) => void;
+  languageSelectedId: number;
+}> = ({ onListClick, languageSelectedId }) => {
+  const [data, setData] = useState<Language[]>();
   const [error, setError] = useState<string | unknown>(null);
   const [isLoading, setIsLoading] = useState<boolean>();
 
@@ -16,7 +16,7 @@ const Words: React.FC<{
 
     async function fetchData() {
       try {
-        const response = await fetchWords(languageId);
+        const response = await fetchLanguages();
         setData(response);
         setIsLoading(false);
       } catch (error) {
@@ -26,7 +26,7 @@ const Words: React.FC<{
     }
 
     fetchData();
-  }, [languageId]);
+  }, []);
 
   let content;
 
@@ -35,11 +35,7 @@ const Words: React.FC<{
   }
 
   if (error) {
-    content = <div>Failed to fetch words.</div>;
-  }
-
-  if (data?.length === 0) {
-    content = <div>There is no words with this language.</div>;
+    content = <div>Failed to fetch languages.</div>;
   }
 
   if (data !== undefined && data !== null && data.length > 0) {
@@ -49,9 +45,9 @@ const Words: React.FC<{
           <ListItem
             key={item._id}
             itemId={item._id}
-            item={item.word}
+            item={item.name}
             onListClick={() => onListClick(item._id)}
-            listItemSelectedId={languageId}
+            listItemSelectedId={languageSelectedId}
           />
         ))}
       </ul>
@@ -61,4 +57,4 @@ const Words: React.FC<{
   return <div>{content}</div>;
 };
 
-export default Words;
+export default Languages;

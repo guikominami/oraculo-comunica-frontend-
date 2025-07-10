@@ -1,13 +1,10 @@
-import { fetchWords } from "../../api";
-import ListItem from "../UI/ListItem";
 import { useEffect, useState } from "react";
-import type { Word } from "../../entities/Word";
+import { fetchTranslations } from "../../api";
+import type { Translation } from "../../entities/Translation";
+import ListItem from "../UI/ListItem";
 
-const Words: React.FC<{
-  onListClick: (wordId: number) => void;
-  languageId: number;
-}> = ({ onListClick, languageId }) => {
-  const [data, setData] = useState<Word[]>();
+const Translations: React.FC<{ wordId: number }> = ({ wordId }) => {
+  const [data, setData] = useState<Translation[]>();
   const [error, setError] = useState<string | unknown>(null);
   const [isLoading, setIsLoading] = useState<boolean>();
 
@@ -16,7 +13,7 @@ const Words: React.FC<{
 
     async function fetchData() {
       try {
-        const response = await fetchWords(languageId);
+        const response = await fetchTranslations(wordId);
         setData(response);
         setIsLoading(false);
       } catch (error) {
@@ -26,7 +23,11 @@ const Words: React.FC<{
     }
 
     fetchData();
-  }, [languageId]);
+  }, [wordId]);
+
+  function handleListClick(id: number) {
+    console.log(id);
+  }
 
   let content;
 
@@ -46,13 +47,17 @@ const Words: React.FC<{
     content = (
       <ul>
         {data.map((item) => (
-          <ListItem
-            key={item._id}
-            itemId={item._id}
-            item={item.word}
-            onListClick={() => onListClick(item._id)}
-            listItemSelectedId={languageId}
-          />
+          <div key={item._id}>
+            <p>{item.word.word}</p>
+            {item.translations.map((itemTranslations) => (
+              <ListItem
+                key={itemTranslations._id}
+                itemId={itemTranslations._id}
+                item={itemTranslations.word}
+                onListClick={() => handleListClick(itemTranslations._id)}
+              />
+            ))}
+          </div>
         ))}
       </ul>
     );
@@ -61,4 +66,4 @@ const Words: React.FC<{
   return <div>{content}</div>;
 };
 
-export default Words;
+export default Translations;
