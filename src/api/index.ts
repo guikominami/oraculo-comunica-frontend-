@@ -1,4 +1,4 @@
-import * as XLSX from "xlsx";
+import type { NewLanguage } from "../entities/Language";
 
 export function fetchLanguages() {
   return fetchData("languages");
@@ -30,17 +30,22 @@ export async function fetchData(dataType: string) {
   }
 }
 
-export async function fetchDataExcel() {
-  const excelFile = "../../public/data.xlsx";
+export async function createNewLanguage(languageData: NewLanguage) {
+  const baseURL = "https://oraculo-comunica.onrender.com/api/languages";
 
-  await fetch(excelFile)
-    .then((res) => res.arrayBuffer())
-    .then((data) => {
-      const workbook = XLSX.read(data, { type: "array" });
-      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-      const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+  console.log(languageData);
 
-      console.log(jsonData);
-      //return json;
-    });
+  const response = await fetch(baseURL, {
+    method: "POST",
+    body: JSON.stringify(languageData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = new Error("An error occurred while add language.");
+    error.message = await response.json();
+    throw error;
+  }
 }

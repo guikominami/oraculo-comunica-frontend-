@@ -3,3 +3,8 @@ export interface Language {
   name: string;
   acronym: string;
 }
+
+export interface newLanguage {
+  name: string;
+  acronym: string;
+}
