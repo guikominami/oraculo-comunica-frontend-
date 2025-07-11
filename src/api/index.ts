@@ -42,10 +42,45 @@ export async function createNewLanguage(languageData: NewLanguage) {
       },
     });
 
-    if (response.ok || (!response.ok && response.status === 400)) {
+    if (response.ok) {
       const data = await response.json();
-      console.log(data.languageId);
-      return data.languageId;
+      return data;
+    }
+
+    if (!response.ok) {
+      const data = await response.json();
+      const message = data.message;
+      throw message;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function sendDataJson(jsonData: unknown[]) {
+  console.log(jsonData);
+
+  //const baseURL = "https://oraculo-comunica.onrender.com/api/data";
+  const baseURL = "http://localhost:3000/api/dataJson/";
+
+  try {
+    const response = await fetch(baseURL, {
+      method: "POST",
+      body: JSON.stringify(jsonData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+
+    if (!response.ok) {
+      const data = await response.json();
+      const message = data.message;
+      throw message;
     }
   } catch (error) {
     console.log(error);
