@@ -33,19 +33,21 @@ export async function fetchData(dataType: string) {
 export async function createNewLanguage(languageData: NewLanguage) {
   const baseURL = "https://oraculo-comunica.onrender.com/api/languages";
 
-  console.log(languageData);
+  try {
+    const response = await fetch(baseURL, {
+      method: "POST",
+      body: JSON.stringify(languageData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  const response = await fetch(baseURL, {
-    method: "POST",
-    body: JSON.stringify(languageData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!response.ok) {
-    const error = new Error("An error occurred while add language.");
-    error.message = await response.json();
-    throw error;
+    if (response.ok || (!response.ok && response.status === 400)) {
+      const data = await response.json();
+      console.log(data.languageId);
+      return data.languageId;
+    }
+  } catch (error) {
+    console.log(error);
   }
 }

@@ -4,7 +4,7 @@ export interface Language {
   acronym: string;
 }
 
-export interface newLanguage {
+export interface NewLanguage {
   name: string;
   acronym: string;
 }
