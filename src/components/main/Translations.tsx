@@ -53,7 +53,7 @@ const Translations: React.FC<{ wordId: number }> = ({ wordId }) => {
               <ListItem
                 key={itemTranslations._id}
                 itemId={itemTranslations._id}
-                item={itemTranslations.word}
+                item={`${itemTranslations.word} - ${itemTranslations.language.name}`}
                 onListClick={() => handleListClick(itemTranslations._id)}
               />
             ))}

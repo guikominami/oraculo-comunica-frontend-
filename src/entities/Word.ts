@@ -5,3 +5,8 @@ export interface Word {
   word: string;
   language: Language;
 }
+
+export interface NewWord {
+  word: string;
+  language: Language;
+}

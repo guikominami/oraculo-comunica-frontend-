@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { fetchLanguages } from "../../api";
+import { fetchProfiles } from "../../api";
 import ListItem from "../UI/ListItem";
 import type { Language } from "../../entities/Language";
 
-const Languages: React.FC<{
-  onListClick: (languageSelectedId: number) => void;
-  languageSelectedId: number;
-  profileId: number;
-}> = ({ onListClick, languageSelectedId, profileId }) => {
+const Profiles: React.FC<{
+  onListClick: (profileSelectedId: number) => void;
+  profileSelectedId: number;
+}> = ({ onListClick, profileSelectedId }) => {
   const [data, setData] = useState<Language[]>();
   const [error, setError] = useState<string | unknown>(null);
   const [isLoading, setIsLoading] = useState<boolean>();
@@ -17,7 +16,7 @@ const Languages: React.FC<{
 
     async function fetchData() {
       try {
-        const response = await fetchLanguages(profileId);
+        const response = await fetchProfiles();
         setData(response);
         setIsLoading(false);
       } catch (error) {
@@ -36,7 +35,7 @@ const Languages: React.FC<{
   }
 
   if (error) {
-    content = <div>Failed to fetch languages.</div>;
+    content = <div>Failed to fetch profiles.</div>;
   }
 
   if (data !== undefined && data !== null && data.length > 0) {
@@ -48,7 +47,7 @@ const Languages: React.FC<{
             itemId={item._id}
             item={item.name}
             onListClick={() => onListClick(item._id)}
-            listItemSelectedId={languageSelectedId}
+            listItemSelectedId={profileSelectedId}
           />
         ))}
       </ul>
@@ -58,4 +57,4 @@ const Languages: React.FC<{
   return <div>{content}</div>;
 };
 
-export default Languages;
+export default Profiles;

@@ -1,7 +1,11 @@
-import type { NewLanguage } from "../entities/Language";
+const baseURL = "http://localhost:3000/api/";
 
-export function fetchLanguages() {
-  return fetchData("languages");
+export function fetchProfiles() {
+  return fetchData("profiles");
+}
+
+export function fetchLanguages(profileID: number) {
+  return fetchData("languages/profileId/" + profileID);
 }
 
 export function fetchWords(languageId: number) {
@@ -15,9 +19,8 @@ export function fetchTranslations(wordId: number) {
 export async function fetchData(dataType: string) {
   try {
     let data = [];
-    const baseURL = "https://oraculo-comunica.onrender.com/api/" + dataType;
 
-    const response = await fetch(baseURL);
+    const response = await fetch(baseURL + dataType);
 
     if (response.ok) {
       data = await response.json();
@@ -30,41 +33,11 @@ export async function fetchData(dataType: string) {
   }
 }
 
-export async function createNewLanguage(languageData: NewLanguage) {
-  const baseURL = "https://oraculo-comunica.onrender.com/api/languages";
-
-  try {
-    const response = await fetch(baseURL, {
-      method: "POST",
-      body: JSON.stringify(languageData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-
-    if (!response.ok) {
-      const data = await response.json();
-      const message = data.message;
-      throw message;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export async function sendDataJson(jsonData: unknown[]) {
   console.log(jsonData);
 
-  //const baseURL = "https://oraculo-comunica.onrender.com/api/data";
-  const baseURL = "http://localhost:3000/api/dataJson/";
-
   try {
-    const response = await fetch(baseURL, {
+    const response = await fetch(baseURL + "dataJson", {
       method: "POST",
       body: JSON.stringify(jsonData),
       headers: {
