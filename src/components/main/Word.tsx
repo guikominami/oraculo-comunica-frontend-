@@ -1,4 +1,5 @@
 import { fetchWords } from "../../api";
+import ListContainer from "../UI/ListContainer";
 import ListItem from "../UI/ListItem";
 import { useEffect, useState } from "react";
 import type { Word } from "../../entities/Word";
@@ -44,7 +45,7 @@ const Words: React.FC<{
 
   if (data !== undefined && data !== null && data.length > 0) {
     content = (
-      <ul>
+      <ListContainer>
         {data.map((item) => (
           <ListItem
             key={item._id}
@@ -54,7 +55,7 @@ const Words: React.FC<{
             listItemSelectedId={languageId}
           />
         ))}
-      </ul>
+      </ListContainer>
     );
   }
 

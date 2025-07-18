@@ -53,6 +53,8 @@ const Languages: React.FC<{
         ))}
       </ul>
     );
+  } else {
+    content = <div>There is no languages in this profile.</div>;
   }
 
   return <div>{content}</div>;
