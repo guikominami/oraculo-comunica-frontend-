@@ -26,7 +26,7 @@ const Profiles: React.FC<{
     }
 
     fetchData();
-  }, []);
+  }, [profileSelectedId]);
 
   let content;
 

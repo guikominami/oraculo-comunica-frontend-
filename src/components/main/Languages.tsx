@@ -27,7 +27,7 @@ const Languages: React.FC<{
     }
 
     fetchData();
-  }, []);
+  }, [profileId, languageSelectedId]);
 
   let content;
 

@@ -6,6 +6,7 @@ import Languages from "../components/main/Languages";
 import Words from "../components/main/Word";
 import Translations from "../components/main/Translations";
 import Title from "../components/UI/Title";
+
 import { useState } from "react";
 
 function Main() {
@@ -14,8 +15,6 @@ function Main() {
   const [wordSelectedId, setWordSelectedId] = useState<number>(0);
 
   function handleProfileClick(profileId: number) {
-    console.log(profileId);
-
     setProfileSelectedId(profileId);
     setLanguageSelectedId(0);
     setWordSelectedId(0);

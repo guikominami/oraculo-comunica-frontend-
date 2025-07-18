@@ -33,11 +33,11 @@ export async function fetchData(dataType: string) {
   }
 }
 
-export async function sendDataJson(jsonData: unknown[]) {
+export async function sendDataJson(jsonData: unknown[], profileID: number) {
   console.log(jsonData);
 
   try {
-    const response = await fetch(baseURL + "dataJson", {
+    const response = await fetch(baseURL + "dataJson/" + profileID, {
       method: "POST",
       body: JSON.stringify(jsonData),
       headers: {
@@ -48,9 +48,7 @@ export async function sendDataJson(jsonData: unknown[]) {
     if (response.ok) {
       const data = await response.json();
       return data;
-    }
-
-    if (!response.ok) {
+    } else {
       const data = await response.json();
       const message = data.message;
       throw message;

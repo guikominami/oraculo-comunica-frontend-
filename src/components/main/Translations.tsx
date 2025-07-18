@@ -48,7 +48,7 @@ const Translations: React.FC<{ wordId: number }> = ({ wordId }) => {
       <ul>
         {data.map((item) => (
           <div key={item._id}>
-            <p>{item.word.word}</p>
+            <p className='ml-3 font-bold text-lg'>{item.word.word}</p>
             {item.translations.map((itemTranslations) => (
               <ListItem
                 key={itemTranslations._id}

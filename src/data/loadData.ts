@@ -1,11 +1,12 @@
 import * as XLSX from "xlsx";
+import { sendDataJson } from "../api";
 
-export async function loadDataExcel() {
+export async function loadDataExcel(profileID: number) {
   const excelFile = "../../data.xlsx";
 
   //checar se é um arquivo do tipo excel
 
-  const response = await fetch(excelFile);
+  let response = await fetch(excelFile);
 
   if (!response.ok) throw new Error("error loading excel file");
 
@@ -16,5 +17,9 @@ export async function loadDataExcel() {
 
   const jsonData = XLSX.utils.sheet_to_json(firstSheetData, { raw: true });
 
-  console.log(jsonData);
+  response = await sendDataJson(jsonData, profileID);
+
+  console.log(response);
+
+  return response;
 }
