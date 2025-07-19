@@ -56,6 +56,7 @@ function Main() {
             <Title title='Words' />
             <Words
               onListClick={handleWordClick}
+              wordSelectedId={wordSelectedId}
               languageId={languageSelectedId}
             />
           </>

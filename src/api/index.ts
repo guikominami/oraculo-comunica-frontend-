@@ -34,8 +34,6 @@ export async function fetchData(dataType: string) {
 }
 
 export async function sendDataJson(jsonData: unknown[], profileID: number) {
-  console.log(jsonData);
-
   try {
     const response = await fetch(baseURL + "dataJson/" + profileID, {
       method: "POST",

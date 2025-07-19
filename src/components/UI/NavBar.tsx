@@ -4,12 +4,15 @@ const NavBar = () => {
   return (
     <nav
       className='
-        fixed top-0 z-3 w-full bg-white text-black 
-        flex justify-between md:px-10 items-center px-10
-        mx-auto h-12  shadow-md
+        fixed top-0 z-3 w-full 
+      bg-white text-black 
+        flex justify-between items-center
+        md:px-112 px-10 
+        mx-auto h-12 shadow-md
         outline outline-black/5
         dark:-outline-offset-1
-        dark:outline-white/10 font-bold uppercase
+        dark:outline-white/10 
+        font-bold uppercase
       '
     >
       <Link to='/'>

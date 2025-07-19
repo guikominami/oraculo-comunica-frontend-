@@ -6,8 +6,9 @@ import type { Word } from "../../entities/Word";
 
 const Words: React.FC<{
   onListClick: (wordId: number) => void;
+  wordSelectedId: number;
   languageId: number;
-}> = ({ onListClick, languageId }) => {
+}> = ({ onListClick, wordSelectedId, languageId }) => {
   const [data, setData] = useState<Word[]>();
   const [error, setError] = useState<string | unknown>(null);
   const [isLoading, setIsLoading] = useState<boolean>();
@@ -52,7 +53,7 @@ const Words: React.FC<{
             itemId={item._id}
             item={item.word}
             onListClick={() => onListClick(item._id)}
-            listItemSelectedId={languageId}
+            listItemSelectedId={wordSelectedId}
           />
         ))}
       </ListContainer>

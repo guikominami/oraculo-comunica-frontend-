@@ -4,28 +4,31 @@ import Container from "../components/UI/Container";
 import Section from "../components/UI/Section";
 import Profiles from "../components/main/Profiles";
 import Title from "../components/UI/Title";
+import Paragraph from "../components/UI/Paragraph";
 
 import { loadDataExcel } from "../data/loadData";
 
 const LoadData = () => {
   const [profileSelectedId, setProfileSelectedId] = useState<number>(0);
-  const [status, setStatus] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [statusLoadData, setStatusLoadData] = useState<boolean>(false);
 
   function handleProfileClick(profileId: number) {
     setProfileSelectedId(profileId);
   }
 
-  function handleButtonClick() {
+  async function handleButtonClick() {
     if (!profileSelectedId) {
       alert("Select the profile before load data.");
       return;
     }
 
-    const response = loadDataExcel(profileSelectedId);
-    // setStatus(false);
-    // if (response) {
-    //   setStatus(true);
-    // }
+    setIsLoading(true);
+    const response = await loadDataExcel(profileSelectedId);
+    if (response) {
+      setIsLoading(false);
+      setStatusLoadData(true);
+    }
   }
 
   return (
@@ -48,6 +51,10 @@ const LoadData = () => {
             Load data
           </button>
         </div>
+        <Paragraph>
+          {isLoading && <>Loading data...</>}
+          {statusLoadData && <>Load data complete.</>}
+        </Paragraph>
       </Container>
     </Section>
   );

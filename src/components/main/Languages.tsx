@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchLanguages } from "../../api";
 import ListItem from "../UI/ListItem";
 import type { Language } from "../../entities/Language";
+import Paragraph from "../UI/Paragraph";
 
 const Languages: React.FC<{
   onListClick: (languageSelectedId: number) => void;
@@ -32,11 +33,11 @@ const Languages: React.FC<{
   let content;
 
   if (isLoading) {
-    content = <div>Loading...</div>;
+    content = <Paragraph>Loading...</Paragraph>;
   }
 
   if (error) {
-    content = <div>Failed to fetch languages.</div>;
+    content = <Paragraph>Failed to fetch languages.</Paragraph>;
   }
 
   if (data !== undefined && data !== null && data.length > 0) {
@@ -54,10 +55,10 @@ const Languages: React.FC<{
       </ul>
     );
   } else {
-    content = <div>There is no languages in this profile.</div>;
+    content = <Paragraph>There is no languages in this profile.</Paragraph>;
   }
 
-  return <div>{content}</div>;
+  return <>{content}</>;
 };
 
 export default Languages;
