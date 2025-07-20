@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchProfiles } from "../../api";
 import ListItem from "../UI/ListItem";
 import type { Language } from "../../entities/Language";
+import Paragraph from "../UI/Paragraph";
 
 const Profiles: React.FC<{
   onListClick: (profileSelectedId: number) => void;
@@ -31,11 +32,11 @@ const Profiles: React.FC<{
   let content;
 
   if (isLoading) {
-    content = <div>Loading...</div>;
+    content = <Paragraph>Loading...</Paragraph>;
   }
 
   if (error) {
-    content = <div>Failed to fetch profiles.</div>;
+    content = <Paragraph>Failed to fetch profiles.</Paragraph>;
   }
 
   if (data !== undefined && data !== null && data.length > 0) {

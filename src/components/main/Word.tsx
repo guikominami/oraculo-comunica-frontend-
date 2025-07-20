@@ -3,6 +3,7 @@ import ListContainer from "../UI/ListContainer";
 import ListItem from "../UI/ListItem";
 import { useEffect, useState } from "react";
 import type { Word } from "../../entities/Word";
+import Paragraph from "../UI/Paragraph";
 
 const Words: React.FC<{
   onListClick: (wordId: number) => void;
@@ -33,29 +34,31 @@ const Words: React.FC<{
   let content;
 
   if (isLoading) {
-    content = <div>Loading...</div>;
+    content = <Paragraph>Loading...</Paragraph>;
   }
 
   if (error) {
-    content = <div>Failed to fetch words.</div>;
+    content = <Paragraph>Failed to fetch words.</Paragraph>;
   }
 
   if (data?.length === 0) {
-    content = <div>There is no words with this language.</div>;
+    content = <Paragraph>There is no words with this language.</Paragraph>;
   }
 
   if (data !== undefined && data !== null && data.length > 0) {
     content = (
       <ListContainer>
-        {data.map((item) => (
-          <ListItem
-            key={item._id}
-            itemId={item._id}
-            item={item.word}
-            onListClick={() => onListClick(item._id)}
-            listItemSelectedId={wordSelectedId}
-          />
-        ))}
+        {data
+          .sort((a, b) => a.word.localeCompare(b.word))
+          .map((item) => (
+            <ListItem
+              key={item._id}
+              itemId={item._id}
+              item={item.word}
+              onListClick={() => onListClick(item._id)}
+              listItemSelectedId={wordSelectedId}
+            />
+          ))}
       </ListContainer>
     );
   }

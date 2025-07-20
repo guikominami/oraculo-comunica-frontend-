@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:3000/api/";
+const baseURL = import.meta.env.VITE_PROJECT_URL;
 
 export function fetchProfiles() {
   return fetchData("profiles");
@@ -43,15 +43,15 @@ export async function sendDataJson(jsonData: unknown[], profileID: number) {
       },
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       const data = await response.json();
       return data;
-    } else {
+    } else if (response.status === 500) {
       const data = await response.json();
-      const message = data.message;
-      throw message;
+      return data;
     }
   } catch (error) {
     console.log(error);
+    return error;
   }
 }

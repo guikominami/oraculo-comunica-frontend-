@@ -7,7 +7,7 @@ const NavBar = () => {
         fixed top-0 z-3 w-full 
       bg-white text-black 
         flex justify-between items-center
-        md:px-112 px-10 
+        md:px-112 px-12 
         mx-auto h-12 shadow-md
         outline outline-black/5
         dark:-outline-offset-1
