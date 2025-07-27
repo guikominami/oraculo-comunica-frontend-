@@ -5,9 +5,9 @@ import type { Language } from "../../entities/Language";
 import Paragraph from "../UI/Paragraph";
 
 const Languages: React.FC<{
-  onListClick: (languageSelectedId: number) => void;
-  languageSelectedId: number;
-  profileId: number;
+  onListClick: (languageSelectedId: string) => void;
+  languageSelectedId: string;
+  profileId: string;
 }> = ({ onListClick, languageSelectedId, profileId }) => {
   const [data, setData] = useState<Language[]>();
   const [error, setError] = useState<string | unknown>(null);

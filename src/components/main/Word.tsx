@@ -6,9 +6,9 @@ import type { Word } from "../../entities/Word";
 import Paragraph from "../UI/Paragraph";
 
 const Words: React.FC<{
-  onListClick: (wordId: number) => void;
-  wordSelectedId: number;
-  languageId: number;
+  onListClick: (wordId: string) => void;
+  wordSelectedId: string;
+  languageId: string;
 }> = ({ onListClick, wordSelectedId, languageId }) => {
   const [data, setData] = useState<Word[]>();
   const [error, setError] = useState<string | unknown>(null);

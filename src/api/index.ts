@@ -4,15 +4,15 @@ export function fetchProfiles() {
   return fetchData("profiles");
 }
 
-export function fetchLanguages(profileID: number) {
+export function fetchLanguages(profileID: string) {
   return fetchData("languages/profileId/" + profileID);
 }
 
-export function fetchWords(languageId: number) {
+export function fetchWords(languageId: string) {
   return fetchData("words/languageid/" + languageId);
 }
 
-export function fetchTranslations(wordId: number) {
+export function fetchTranslations(wordId: string) {
   return fetchData("translations/wordid/" + wordId);
 }
 
@@ -33,7 +33,7 @@ export async function fetchData(dataType: string) {
   }
 }
 
-export async function sendDataJson(jsonData: unknown[], profileID: number) {
+export async function sendDataJson(jsonData: unknown[], profileID: string) {
   try {
     const response = await fetch(baseURL + "dataJson/" + profileID, {
       method: "POST",
@@ -53,5 +53,50 @@ export async function sendDataJson(jsonData: unknown[], profileID: number) {
   } catch (error) {
     console.log(error);
     return error;
+  }
+}
+
+export async function deleteProfile(profileId: string) {
+  console.log("Deleting profile with ID:", profileId);
+  try {
+    const response = await fetch(baseURL + "profiles/" + profileId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      return true;
+    } else {
+      console.log("Failed to delete profile, got status: " + response.status);
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export async function addProfile(profileName: string) {
+  try {
+    const response = await fetch(baseURL + "profiles", {
+      method: "POST",
+      body: JSON.stringify({ name: profileName }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.log("Failed to add profile, got status: " + response.status);
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 }

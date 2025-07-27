@@ -2,16 +2,17 @@ import React from "react";
 import "./ListItem.css";
 
 const ListItem: React.FC<{
-  itemId: number | string;
+  itemId: string;
   item: string;
-  onListClick: (id: number | string, name: string) => void;
-  listItemSelectedId?: number;
+  onListClick: (id: string, name: string) => void;
+  listItemSelectedId?: string;
 }> = ({ itemId, item, onListClick, listItemSelectedId }) => {
   return (
     <li
       id={listItemSelectedId === itemId ? "active_item" : ""}
       className='
-            rounded-xl p-2 m-2 shadow 
+            w-full
+            rounded-xl p-2 m-1 shadow 
             outline outline-black/10
             dark:-outline-offset
             transition delay-150 

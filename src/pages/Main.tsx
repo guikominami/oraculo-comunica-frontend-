@@ -10,36 +10,36 @@ import Title from "../components/UI/Title";
 import { useState } from "react";
 
 function Main() {
-  const [profileSelectedId, setProfileSelectedId] = useState<number>(0);
-  const [languageSelectedId, setLanguageSelectedId] = useState<number>(0);
-  const [wordSelectedId, setWordSelectedId] = useState<number>(0);
+  const [profileSelectedId, setProfileSelectedId] = useState<string>("");
+  const [languageSelectedId, setLanguageSelectedId] = useState<string>("");
+  const [wordSelectedId, setWordSelectedId] = useState<string>("");
 
-  function handleProfileClick(profileId: number) {
+  function handleProfileClick(profileId: string) {
     setProfileSelectedId(profileId);
-    setLanguageSelectedId(0);
-    setWordSelectedId(0);
+    setLanguageSelectedId("");
+    setWordSelectedId("");
   }
 
-  function handleLanguageClick(languageId: number) {
+  function handleLanguageClick(languageId: string) {
     setLanguageSelectedId(languageId);
-    setWordSelectedId(0);
+    setWordSelectedId("");
   }
 
-  function handleWordClick(wordId: number) {
+  function handleWordClick(wordId: string) {
     setWordSelectedId(wordId);
   }
 
   return (
     <Section>
       <Container>
-        <Title title='Profiles' />
+        <Title title='Perfis' />
         <Profiles
           onListClick={handleProfileClick}
           profileSelectedId={profileSelectedId}
         />
       </Container>
       <Container>
-        {profileSelectedId !== 0 && (
+        {profileSelectedId && (
           <>
             <Title title='Languages' />
             <Languages
@@ -51,7 +51,7 @@ function Main() {
         )}
       </Container>
       <Container>
-        {languageSelectedId !== 0 && (
+        {languageSelectedId && (
           <>
             <Title title='Words' />
             <Words
@@ -63,7 +63,7 @@ function Main() {
         )}
       </Container>
       <Container>
-        {wordSelectedId !== 0 && (
+        {wordSelectedId && (
           <>
             <Title title='Translations' />
             <Translations wordId={wordSelectedId} />

@@ -7,18 +7,22 @@ import Section from "../components/UI/Section";
 import Profiles from "../components/main/Profiles";
 import Title from "../components/UI/Title";
 import Paragraph from "../components/UI/Paragraph";
+import AddProfile from "../components/main/Profiles/AddProfile";
 
 const LoadData = () => {
-  const [profileSelectedId, setProfileSelectedId] = useState<number>(0);
+  const [profileSelectedId, setProfileSelectedId] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [statusLoadData, setStatusLoadData] = useState<boolean>(false);
   const [data, setData] = useState<unknown[]>();
 
-  function handleProfileClick(profileId: number) {
+  function handleProfileClick(profileId: string) {
+    console.log("Profile selected:", profileId);
     setProfileSelectedId(profileId);
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
+
     if (e.target.files) {
       const file = e.target.files[0];
       const reader = new FileReader();
@@ -38,15 +42,18 @@ const LoadData = () => {
     }
   };
 
-  async function handleButtonClick() {
+  async function handleButtonRemoveClick() {
     if (!profileSelectedId) {
       alert("Select the profile before load data.");
       return;
     }
 
-    setIsLoading(true);
+    if (!data || data.length === 0) {
+      alert("No data to load. Please select a valid file.");
+      return;
+    }
 
-    console.log(data);
+    setIsLoading(true);
 
     if (data) {
       const response = await sendDataJson(data, profileSelectedId);
@@ -64,7 +71,8 @@ const LoadData = () => {
   return (
     <Section>
       <Container>
-        <Title title='Profiles' />
+        <Title title='Perfis' />
+        <AddProfile onAddProfile={handleProfileClick} />
         <Profiles
           onListClick={handleProfileClick}
           profileSelectedId={profileSelectedId}
@@ -75,8 +83,7 @@ const LoadData = () => {
         {!isLoading && (
           <div>
             <input
-              className='ml-2 p-1 m-2 
-                         bg-black/10 text-sm'
+              className='ml-2 p-1 m-2  bg-black/1 text-sm'
               type='file'
               onChange={handleFileChange}
             />
@@ -84,9 +91,9 @@ const LoadData = () => {
               className='rounded-xl p-2 m-2 shadow 
             outline outline-black/10 bg-black/10'
               type='submit'
-              onClick={handleButtonClick}
+              onClick={handleButtonRemoveClick}
             >
-              Load data
+              Carregar dados
             </button>
           </div>
         )}

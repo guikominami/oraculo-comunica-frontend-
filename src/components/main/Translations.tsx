@@ -3,7 +3,7 @@ import { fetchTranslations } from "../../api";
 import type { Translation } from "../../entities/Translation";
 import ListItem from "../UI/ListItem";
 
-const Translations: React.FC<{ wordId: number }> = ({ wordId }) => {
+const Translations: React.FC<{ wordId: string }> = ({ wordId }) => {
   const [data, setData] = useState<Translation[]>();
   const [error, setError] = useState<string | unknown>(null);
   const [isLoading, setIsLoading] = useState<boolean>();
@@ -25,7 +25,7 @@ const Translations: React.FC<{ wordId: number }> = ({ wordId }) => {
     fetchData();
   }, [wordId]);
 
-  function handleListClick(id: number) {
+  function handleListClick(id: string) {
     console.log(id);
   }
 

@@ -16,10 +16,10 @@ const NavBar = () => {
       '
     >
       <Link to='/'>
-        <p>Home</p>
+        <p>Listas</p>
       </Link>
       <Link to='/loadData'>
-        <p>Load data</p>
+        <p>Carregar dados</p>
       </Link>
     </nav>
   );

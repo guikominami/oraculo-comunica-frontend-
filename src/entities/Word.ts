@@ -1,7 +1,7 @@
 import type { Language } from "./Language";
 
 export interface Word {
-  _id: number;
+  _id: string;
   word: string;
   language: Language;
 }
