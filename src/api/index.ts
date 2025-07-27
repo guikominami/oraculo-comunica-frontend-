@@ -1,4 +1,4 @@
-const baseURL = import.meta.env.VITE_PROJECT_URL;
+const baseURL = import.meta.env.VITE_PROJECT_URL_API;
 
 export function fetchProfiles() {
   return fetchData("profiles");
@@ -34,6 +34,7 @@ export async function fetchData(dataType: string) {
 }
 
 export async function sendDataJson(jsonData: unknown[], profileID: string) {
+  console.log("Sending data:", jsonData);
   try {
     const response = await fetch(baseURL + "dataJson/" + profileID, {
       method: "POST",

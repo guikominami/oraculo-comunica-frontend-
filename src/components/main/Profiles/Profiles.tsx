@@ -1,33 +1,36 @@
 import { useEffect, useState } from "react";
-import { fetchProfiles, deleteProfile } from "../../api";
-import ListItem from "../UI/ListItem";
-import type { Profile } from "../../entities/Profiles";
-import Paragraph from "../UI/Paragraph";
+import { fetchProfiles, deleteProfile } from "../../../api";
+import ListItem from "../../UI/ListItem";
+import type { Profile } from "../../../entities/Profiles";
+import Paragraph from "../../UI/Paragraph";
 
 const Profiles: React.FC<{
   onListClick: (profileSelectedId: string) => void;
   profileSelectedId: string;
-}> = ({ onListClick, profileSelectedId }) => {
+  hasButtonRemove?: boolean;
+}> = ({ onListClick, profileSelectedId, hasButtonRemove }) => {
   const [data, setData] = useState<Profile[]>();
   const [error, setError] = useState<string | unknown>(null);
   const [isLoading, setIsLoading] = useState<boolean>();
 
   useEffect(() => {
-    console.log("Fetching profiles...");
     setIsLoading(true);
 
-    async function fetchData() {
-      try {
-        const response = await fetchProfiles();
-        setData(response);
-        setIsLoading(false);
-      } catch (error) {
+    fetchProfiles()
+      .then((response) => {
+        if (response) {
+          setData(response);
+        } else {
+          console.error("Failed to fetch profiles.");
+        }
+      })
+      .catch((error) => {
         setError(error);
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
+        console.error("Error fetching profiles:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [profileSelectedId]);
 
   function handleButtonRemoveClick(id: string) {
@@ -54,11 +57,11 @@ const Profiles: React.FC<{
   let content;
 
   if (isLoading) {
-    content = <Paragraph>Loading...</Paragraph>;
+    content = <Paragraph>Carregando...</Paragraph>;
   }
 
   if (error) {
-    content = <Paragraph>Failed to fetch profiles.</Paragraph>;
+    content = <Paragraph>Falha ao carregar perfis.</Paragraph>;
   }
 
   if (data !== undefined && data !== null && data.length > 0) {
@@ -73,13 +76,15 @@ const Profiles: React.FC<{
               onListClick={() => onListClick(item._id)}
               listItemSelectedId={profileSelectedId}
             />
-            <button
-              className='px-3 py-1 ml-1 bg-red-500 text-white rounded'
-              id={item._id}
-              onClick={() => handleButtonRemoveClick(item._id)}
-            >
-              x
-            </button>
+            {hasButtonRemove && (
+              <button
+                className='px-3 py-1 ml-1 bg-red-500 text-white rounded'
+                id={item._id}
+                onClick={() => handleButtonRemoveClick(item._id)}
+              >
+                x
+              </button>
+            )}
           </div>
         ))}
       </ul>

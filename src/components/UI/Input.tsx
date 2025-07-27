@@ -4,7 +4,7 @@ const Input: React.FC<{
   return (
     <input
       id={id}
-      className='w-[87%] p-2 shadow outline outline-black/10 rounded-xl'
+      className='w-[100%] mr-1 p-2 shadow outline outline-black/10 rounded-xl'
       placeholder='Digite o nome do perfil'
     />
   );

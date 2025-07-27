@@ -18,8 +18,8 @@ const AddProfile: React.FC<{
       .then((response) => {
         if (response) {
           console.log("Profile added successfully:", response);
-
-          onAddProfile(newProfileName);
+          const newProfileId = response._id;
+          onAddProfile(newProfileId);
         } else {
           console.error("Failed to add profile.");
         }

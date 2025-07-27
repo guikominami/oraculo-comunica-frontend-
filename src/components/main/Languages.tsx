@@ -16,28 +16,31 @@ const Languages: React.FC<{
   useEffect(() => {
     setIsLoading(true);
 
-    async function fetchData() {
-      try {
-        const response = await fetchLanguages(profileId);
-        setData(response);
-        setIsLoading(false);
-      } catch (error) {
+    fetchLanguages(profileId)
+      .then((response) => {
+        if (response) {
+          setData(response);
+        } else {
+          console.error("Failed to fetch languages.");
+        }
+      })
+      .catch((error) => {
         setError(error);
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
+        console.error("Error fetching languages:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [profileId, languageSelectedId]);
 
   let content;
 
   if (isLoading) {
-    content = <Paragraph>Loading...</Paragraph>;
+    content = <Paragraph>Carregando...</Paragraph>;
   }
 
   if (error) {
-    content = <Paragraph>Failed to fetch languages.</Paragraph>;
+    content = <Paragraph>Falha ao carregar línguas.</Paragraph>;
   }
 
   if (data !== undefined && data !== null && data.length > 0) {

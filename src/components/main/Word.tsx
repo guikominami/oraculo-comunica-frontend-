@@ -17,32 +17,37 @@ const Words: React.FC<{
   useEffect(() => {
     setIsLoading(true);
 
-    async function fetchData() {
-      try {
-        const response = await fetchWords(languageId);
-        setData(response);
-        setIsLoading(false);
-      } catch (error) {
+    fetchWords(languageId)
+      .then((response) => {
+        if (response) {
+          setData(response);
+        } else {
+          console.error("Failed to fetch words.");
+        }
+      })
+      .catch((error) => {
         setError(error);
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
+        console.error("Error fetching words:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [languageId]);
 
   let content;
 
   if (isLoading) {
-    content = <Paragraph>Loading...</Paragraph>;
+    content = <Paragraph>Carregando...</Paragraph>;
   }
 
   if (error) {
-    content = <Paragraph>Failed to fetch words.</Paragraph>;
+    content = <Paragraph>Falha ao carregar palavras.</Paragraph>;
   }
 
   if (data?.length === 0) {
-    content = <Paragraph>There is no words with this language.</Paragraph>;
+    content = (
+      <Paragraph>Não há palavras cadastradas para essa língua.</Paragraph>
+    );
   }
 
   if (data !== undefined && data !== null && data.length > 0) {

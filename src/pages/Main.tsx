@@ -1,7 +1,7 @@
 import Container from "../components/UI/Container";
 import Section from "../components/UI/Section";
 
-import Profiles from "../components/main/Profiles";
+import Profiles from "../components/main/Profiles/Profiles";
 import Languages from "../components/main/Languages";
 import Words from "../components/main/Word";
 import Translations from "../components/main/Translations";
@@ -36,12 +36,13 @@ function Main() {
         <Profiles
           onListClick={handleProfileClick}
           profileSelectedId={profileSelectedId}
+          hasButtonRemove={false}
         />
       </Container>
       <Container>
         {profileSelectedId && (
           <>
-            <Title title='Languages' />
+            <Title title='Línguas' />
             <Languages
               onListClick={handleLanguageClick}
               languageSelectedId={languageSelectedId}
@@ -53,7 +54,7 @@ function Main() {
       <Container>
         {languageSelectedId && (
           <>
-            <Title title='Words' />
+            <Title title='Palavras' />
             <Words
               onListClick={handleWordClick}
               wordSelectedId={wordSelectedId}
@@ -65,7 +66,7 @@ function Main() {
       <Container>
         {wordSelectedId && (
           <>
-            <Title title='Translations' />
+            <Title title='Traduções' />
             <Translations wordId={wordSelectedId} />
           </>
         )}

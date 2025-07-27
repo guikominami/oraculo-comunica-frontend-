@@ -11,18 +11,21 @@ const Translations: React.FC<{ wordId: string }> = ({ wordId }) => {
   useEffect(() => {
     setIsLoading(true);
 
-    async function fetchData() {
-      try {
-        const response = await fetchTranslations(wordId);
-        setData(response);
-        setIsLoading(false);
-      } catch (error) {
+    fetchTranslations(wordId)
+      .then((response) => {
+        if (response) {
+          setData(response);
+        } else {
+          console.error("Failed to fetch translations.");
+        }
+      })
+      .catch((error) => {
         setError(error);
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
+        console.error("Error fetching translations:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [wordId]);
 
   function handleListClick(id: string) {
@@ -32,15 +35,15 @@ const Translations: React.FC<{ wordId: string }> = ({ wordId }) => {
   let content;
 
   if (isLoading) {
-    content = <div>Loading...</div>;
+    content = <div>Carregando...</div>;
   }
 
   if (error) {
-    content = <div>Failed to fetch words.</div>;
+    content = <div>Falha ao carregar palavras.</div>;
   }
 
   if (data?.length === 0) {
-    content = <div>There is no words with this language.</div>;
+    content = <div>Não há traduções cadastradas para essa palavra.</div>;
   }
 
   if (data !== undefined && data !== null && data.length > 0) {

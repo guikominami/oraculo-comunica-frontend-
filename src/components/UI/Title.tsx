@@ -5,8 +5,8 @@ const Title: React.FC<{ title: string }> = ({ title }) => {
     <>
       <h1
         className='
-          font-bold text-[1rem] uppercase mb-1 pl-4
-          md:text-2xl md:mb-4
+          font-bold text-[1rem] uppercase mb-1 pl-2
+          md:text-2xl md:mb-2
         '
       >
         {title}
